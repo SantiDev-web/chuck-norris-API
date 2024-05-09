@@ -1,22 +1,24 @@
-import logo from './logo.svg';
+import logo from './logo2.png';
 import './App.css';
+import Chistes from './Components/Chistes';
+import { useState } from 'react';
 
 function App() {
+  const [chistes, setChistes]= useState(null)
+  const reqApi = async ()=>{
+    const api = await fetch('https://api.chucknorris.io/jokes/random');
+    const characterChiste = await api.json();
+    setChistes(characterChiste.value)
+  }
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <h1 className="tittle-chiste">Recibe un chiste de CHUCK NORRIS</h1>
+            <h3 className="text-chiste">Pulsa sobre el boton Chiste para obtenerlo</h3>
+            <button className="button-chiste" onClick={reqApi}>Chiste</button>
+            <Chistes chistes={chistes} />
       </header>
     </div>
   );
